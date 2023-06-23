@@ -1,0 +1,36 @@
+ 
+// 打开twitter.com
+await page.goto('https://twitter.com/');
+
+// 等待页面加载完成
+await page.waitForSelector('div[data-testid="LoginForm_Login_Button"]');
+
+// 输入用户名和密码
+await page.type('input[name="session[username_or_email]"]', 'your_username');
+await page.type('input[name="session[password]"]', 'your_password');
+
+// 点击登录按钮
+await page.click('div[data-testid="LoginForm_Login_Button"]');
+
+// 等待页面加载完成
+await page.waitForSelector('div[data-testid="sidebarColumn"]');
+
+// 进入自己的主页
+await page.goto('https://twitter.com/your_username');
+
+// 等待页面加载完成
+await page.waitForSelector('div[data-testid="UserDescription"]');
+
+// 获取所有关注的用户
+const followingList = await page.$$eval('div[data-testid="UserCell"]', cells => cells.map(cell => {
+  const name = cell.querySelector('div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > span > span').textContent;
+  const username = cell.querySelector('div > div > div > div > div > div > div > div > div > div > div > div > div > div > div > span > span > span').textContent;
+  return { name, username };
+}));
+
+// 取消关注所有用户
+for (const user of followingList) {
+  await page.goto(`https://twitter.com/${user.username}`);
+  await page.waitForSelector('div[data-testid="primaryColumn"]');
+
+  const followButton = await page.$('div[data-testid="primaryColumn"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div[data-testid="placementTracking"] div
